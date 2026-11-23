@@ -1,0 +1,15 @@
+.venv/
+_extract/
+*.zip
+__pycache__/
+
+# raw/private material
+SSY226_Fido_article_final.pdf
+recovered/notes/
+recovered/portfolio/
+CLAUDE.md
+REGENERATE_PROMPT.md
+graphify-out/
+.claude/
+*.egg-info/
+.DS_Store

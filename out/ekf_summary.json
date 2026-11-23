@@ -1,0 +1,51 @@
+{
+ "odometry only": {
+  "len_ratio_vs_odom": 1.0,
+  "jerk_rms": 0.22326150733265934,
+  "rms_to_odom": 0.0,
+  "len10_ratio": 1.0,
+  "jerk10": 0.007455456095581732
+ },
+ "GNSS only (aligned, gated)": {
+  "len_ratio_vs_odom": 1.6052616334797414,
+  "jerk_rms": 0.6293369639778016,
+  "rms_to_odom": 3.7991966888449324,
+  "len10_ratio": NaN,
+  "jerk10": NaN
+ },
+ "EKF original": {
+  "len_ratio_vs_odom": 2.891097045983242,
+  "jerk_rms": 1.4132831253925933,
+  "rms_to_odom": 3.7378122523999586,
+  "len10_ratio": 9.380424736713149,
+  "jerk10": 0.8223258137593982
+ },
+ "EKF + stationary gate (ext.)": {
+  "len_ratio_vs_odom": 2.2489951769026617,
+  "jerk_rms": 0.9669276045562901,
+  "rms_to_odom": 2.5582357256818473,
+  "len10_ratio": 6.604145248337851,
+  "jerk10": 0.5742509504746592
+ },
+ "+ RTK/plain R switch (ext.)": {
+  "len_ratio_vs_odom": 2.3210135744739024,
+  "jerk_rms": 1.0207059878179334,
+  "rms_to_odom": 2.646079459667127,
+  "len10_ratio": 6.9689113803148866,
+  "jerk10": 0.609857101821238
+ },
+ "+ odometry v, omega (ext.)": {
+  "len_ratio_vs_odom": 2.194439950845954,
+  "jerk_rms": 0.9474484742024031,
+  "rms_to_odom": 2.546980428416712,
+  "len10_ratio": 6.569884442169086,
+  "jerk10": 0.571314810196856
+ },
+ "EKF paper-like (ext.)": {
+  "len_ratio_vs_odom": 1.4604473771002349,
+  "jerk_rms": 0.4463177398723597,
+  "rms_to_odom": 3.352869737574771,
+  "len10_ratio": 1.9453100601068514,
+  "jerk10": 0.21457848177243374
+ }
+}

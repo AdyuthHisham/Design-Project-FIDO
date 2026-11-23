@@ -1,0 +1,42 @@
+{
+ "A": {
+  "file": "[traj_server-2] [4.353236198425293, 0.29",
+  "first_line": "4.353236198425293, 0.2951790392398834]",
+  "cycles": 473,
+  "vx_range": [
+   -10.769627633453977,
+   14.166978266245142
+  ],
+  "vy_range": [
+   -8.01953002429315,
+   12.91661016506948
+  ],
+  "omega_range": [
+   2.3813614589642436,
+   2.3813614589642436
+  ],
+  "note": "vx/vy reach +-14 m/s and omega is stuck at one value: the controller diverged/saturated; not a usable trace of a planned path"
+ },
+ "B": {
+  "file": "traj_server-2] [0.30571189522743225, 0.7",
+  "first_line": "0.30571189522743225, 0.7300924062728882]",
+  "cycles": 99,
+  "vx_range": [
+   -0.6135354675739645,
+   0.5142157569971916
+  ],
+  "vy_range": [
+   -0.00028741322231537643,
+   1.2749002251195471
+  ],
+  "omega_range": [
+   -1.743753566670729,
+   -0.8735978827745176
+  ],
+  "start_slope_logged_mps2": 0.7467279523031195,
+  "start_slope_sim_mps2": 0.9191575211733807,
+  "implied_initial_heading_error_rad": -0.2432294959710456,
+  "omega_decay_per_cycle_logged": 0.9947385939302404,
+  "omega_decay_per_cycle_if_robot_followed_LQR": 0.8566166032035598
+ }
+}

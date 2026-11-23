@@ -1,0 +1,238 @@
+{
+ "paper_reported_rmse_plain_m": {
+  "value": 6.7,
+  "script": "paper Sec. IV-A / Fig 3",
+  "bags": [],
+  "note": "cited, not computed"
+ },
+ "paper_reported_rmse_rtk_m": {
+  "value": 1.7,
+  "script": "paper Sec. IV-A / Fig 3",
+  "bags": [],
+  "note": "cited, not computed"
+ },
+ "rmse_rtk_paper_style_m": {
+  "value": 6.761709204241239,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov24_Test__2025_11_25-02_21_09",
+   "Nov24_Test__2025_11_25-02_50_49"
+  ],
+  "note": "aligned GNSS vs odometry, recovered alignment rule, mean of 2 runs"
+ },
+ "rmse_plain_paper_style_m": {
+  "value": 5.668401627928882,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov25_Test__2025_11_25-18_24_31",
+   "Nov25_Test__2025_11_25-18_29_08",
+   "Nov18_Test__2025_11_18-18_14_55",
+   "Nov18_Test__2025_11_18-18_41_46",
+   "0112Test__2026_01_12-21_51_14"
+  ],
+  "note": "same, mean of 5 runs"
+ },
+ "rmse_rtk_with_stationary_gate_m": {
+  "value": 1.8169063577537847,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov24_Test__2025_11_25-02_21_09",
+   "Nov24_Test__2025_11_25-02_50_49"
+  ],
+  "note": "extension: regression window cleared when robot is still"
+ },
+ "rmse_plain_with_stationary_gate_m": {
+  "value": 5.426517330821427,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov25_Test__2025_11_25-18_24_31",
+   "Nov25_Test__2025_11_25-18_29_08",
+   "Nov18_Test__2025_11_18-18_14_55",
+   "Nov18_Test__2025_11_18-18_41_46",
+   "0112Test__2026_01_12-21_51_14"
+  ],
+  "note": ""
+ },
+ "rmse_rtk_best_rigid_fit_m": {
+  "value": 1.5104173759106447,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov24_Test__2025_11_25-02_21_09",
+   "Nov24_Test__2025_11_25-02_50_49"
+  ],
+  "note": "alignment-independent lower bound"
+ },
+ "rmse_plain_best_rigid_fit_m": {
+  "value": 3.455493742757433,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov25_Test__2025_11_25-18_24_31",
+   "Nov25_Test__2025_11_25-18_29_08",
+   "Nov18_Test__2025_11_18-18_14_55",
+   "Nov18_Test__2025_11_18-18_41_46",
+   "0112Test__2026_01_12-21_51_14"
+  ],
+  "note": ""
+ },
+ "circle_fit_rms_rtk_m": {
+  "value": 0.3211390542427238,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov24_Test__2025_11_25-02_21_09",
+   "Nov24_Test__2025_11_25-02_50_49"
+  ],
+  "note": "RMS radial residual about fitted circle; no odometry used"
+ },
+ "circle_fit_rms_plain_m": {
+  "value": 1.2939526360742808,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Nov25_Test__2025_11_25-18_24_31",
+   "Nov25_Test__2025_11_25-18_29_08",
+   "Nov18_Test__2025_11_18-18_14_55",
+   "Nov18_Test__2025_11_18-18_41_46",
+   "0112Test__2026_01_12-21_51_14"
+  ],
+  "note": ""
+ },
+ "static_rtk_std_e_m": {
+  "value": 0.05231045317851075,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Dec04_Test__2025_12_04-18_29_15"
+  ],
+  "note": ""
+ },
+ "static_rtk_std_n_m": {
+  "value": 0.02111804754681224,
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "Dec04_Test__2025_12_04-18_29_15"
+  ],
+  "note": ""
+ },
+ "mixed_run_rtk_dropout_at_s": {
+  "value": [
+   165.038915072
+  ],
+  "script": "src/fig_rtk.py",
+  "bags": [
+   "0112Test__2026_01_12-21_46_33"
+  ],
+  "note": "RMS err RTK part 1.55 m, plain part 2.52 m (rigid-fit residual vs odometry)"
+ },
+ "ekf_ablation_mean_over_runs": {
+  "value": {
+   "odometry only": {
+    "len_ratio_vs_odom": 1.0,
+    "jerk_rms": 0.22326150733265934,
+    "rms_to_odom": 0.0,
+    "len10_ratio": 1.0,
+    "jerk10": 0.007455456095581732
+   },
+   "GNSS only (aligned, gated)": {
+    "len_ratio_vs_odom": 1.6052616334797414,
+    "jerk_rms": 0.6293369639778016,
+    "rms_to_odom": 3.7991966888449324,
+    "len10_ratio": NaN,
+    "jerk10": NaN
+   },
+   "EKF original": {
+    "len_ratio_vs_odom": 2.891097045983242,
+    "jerk_rms": 1.4132831253925933,
+    "rms_to_odom": 3.7378122523999586,
+    "len10_ratio": 9.380424736713149,
+    "jerk10": 0.8223258137593982
+   },
+   "EKF + stationary gate (ext.)": {
+    "len_ratio_vs_odom": 2.2489951769026617,
+    "jerk_rms": 0.9669276045562901,
+    "rms_to_odom": 2.5582357256818473,
+    "len10_ratio": 6.604145248337851,
+    "jerk10": 0.5742509504746592
+   },
+   "+ RTK/plain R switch (ext.)": {
+    "len_ratio_vs_odom": 2.3210135744739024,
+    "jerk_rms": 1.0207059878179334,
+    "rms_to_odom": 2.646079459667127,
+    "len10_ratio": 6.9689113803148866,
+    "jerk10": 0.609857101821238
+   },
+   "+ odometry v, omega (ext.)": {
+    "len_ratio_vs_odom": 2.194439950845954,
+    "jerk_rms": 0.9474484742024031,
+    "rms_to_odom": 2.546980428416712,
+    "len10_ratio": 6.569884442169086,
+    "jerk10": 0.571314810196856
+   },
+   "EKF paper-like (ext.)": {
+    "len_ratio_vs_odom": 1.4604473771002349,
+    "jerk_rms": 0.4463177398723597,
+    "rms_to_odom": 3.352869737574771,
+    "len10_ratio": 1.9453100601068514,
+    "jerk10": 0.21457848177243374
+   }
+  },
+  "script": "src/fig_ekf.py",
+  "bags": [
+   "Dec04_Test__2025_12_04-18_36_09",
+   "Dec04_Test__2025_12_04-18_37_53",
+   "Nov25_Test__2025_11_25-18_20_45",
+   "Nov25_Test__2025_11_25-18_24_31",
+   "Nov25_Test__2025_11_25-18_29_08",
+   "Nov24_Test__2025_11_25-02_21_09",
+   "Nov24_Test__2025_11_25-02_50_49",
+   "Nov18_Test__2025_11_18-18_14_55",
+   "Nov18_Test__2025_11_18-18_41_46",
+   "0112Test__2026_01_12-21_46_33",
+   "0112Test__2026_01_12-21_51_14",
+   "root__2025_12_16-22_28_31"
+  ],
+  "note": "len_ratio_vs_odom, jerk_rms, rms_to_odom per method; consistency, not accuracy"
+ },
+ "static_gnss_cov_en_m2": {
+  "value": [
+   [
+    0.002764887506655135,
+    -7.304405046515411e-05
+   ],
+   [
+    -7.304405046515411e-05,
+    0.00045061747314972876
+   ]
+  ],
+  "script": "src/fig_noise.py",
+  "bags": [
+   "Dec04_Test__2025_12_04-18_29_15"
+  ],
+  "note": "hand-set R_gps in ekf_Controller.py: 0.5 m^2 (x10 inflation = 5 m^2)"
+ },
+ "sim_closed_loop_circle_xtrack_rms_m": {
+  "value": {
+   "circle|rtk|truth": 0.009,
+   "circle|rtk|odom": 1.33,
+   "circle|rtk|gnss": 0.206,
+   "circle|rtk|gnss_zoh": 2.2581715576223852e+31,
+   "circle|rtk|ekf": 613.095,
+   "circle|rtk|ekf_ext": 0.67,
+   "circle|plain|gnss": 0.68,
+   "circle|plain|gnss_zoh": 1.4262249561121902e+31,
+   "circle|plain|ekf": 437.653,
+   "circle|plain|ekf_ext": 1.167
+  },
+  "script": "src/fig_control.py",
+  "bags": [],
+  "note": "SIMULATION; noise magnitudes resampled from bags; recovered EKF diverges closed-loop"
+ },
+ "control_log_B_start_slope_logged_vs_sim_mps2": {
+  "value": [
+   0.7467279523031195,
+   0.9191575211733807
+  ],
+  "script": "src/fig_logs.py",
+  "bags": [
+   "_extract/traj_server logs"
+  ],
+  "note": "partial agreement only"
+ }
+}
