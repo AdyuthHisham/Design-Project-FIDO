@@ -14,7 +14,7 @@ The robot has three position sources, none good enough alone:
 The plots below (Fig. 3 to 5) are taken from the co-authored paper. The numbers in the text come from re-running the recovered code on the recorded bags (**replay**), a port of that code (**re-implementation**) or a synthetic closed loop (**simulation**), and are labelled as such. Odometry is a *relative baseline, not ground truth*; no surveyed reference exists, so nothing here is a filter accuracy claim.
 
 ## The paper
-The work is described in the co-authored project paper, *FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide* (Adyuth Hisham Babu Syed, Xiaoyang Chen, David Mörck, Andreas Särnholm, Shijie Zhou; Chalmers, SSY226). Figures 3 to 5 below are from that paper, and the paper's reported numbers are cited where compared.
+The work is described in the co-authored project paper, [*FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide*](SSY226_Fido_article_final.pdf) (Adyuth Hisham Babu Syed, Xiaoyang Chen, David Mörck, Andreas Särnholm, Shijie Zhou; Chalmers, SSY226). Figures 3 to 5 below are from that paper, and the paper's reported numbers are cited where compared.
 
 ## 1. RTK-GNSS
 RTK (real-time kinematic) uses correction data from a reference network to turn a metre-level GNSS fix into a centimetre-level one. The receiver reports the fix type in the NavSatFix status: `2` = RTK-corrected, `0` = plain. Fixes arrive at ~1 Hz as latitude/longitude. Here RTK is a property of the input; the EKF is unchanged by it in the original (this repo adds an optional status-dependent R, labelled "ext.").
