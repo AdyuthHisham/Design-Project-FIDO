@@ -187,12 +187,6 @@ Zhou and me) improved the existing localization and trajectory control,
 and implemented a new LiDAR SLAM and new dialogue/voice modules. This
 repo covers only the localization and trajectory-control part, rebuilt
 offline from the recorded ROS 2 bags.</p>
-<p>The work is described in the co-authored project paper, <em>FIDO:
-Integrating Robust Navigation and Interaction for a Campus Tour
-Guide</em> (Adyuth Hisham Babu Syed, Xiaoyang Chen, David Mörck, Andreas
-Särnholm, Shijie Zhou; Chalmers, SSY226). Figures 3 to 5 below are from
-that paper, and the paper’s reported numbers are cited where
-compared.</p>
 <p>The robot has three position sources, none good enough alone: -
 <strong>Leg odometry</strong> (~300 Hz): smooth but drifts, and lives in
 its own frame that starts at an arbitrary pose. - <strong>IMU</strong>:
@@ -211,6 +205,13 @@ recorded bags (<strong>replay</strong>), a port of that code
 (<strong>simulation</strong>), and are labelled as such. Odometry is a
 <em>relative baseline, not ground truth</em>; no surveyed reference
 exists, so nothing here is a filter accuracy claim.</p>
+<h2 id="the-paper">The paper</h2>
+<p>The work is described in the co-authored project paper, <em>FIDO:
+Integrating Robust Navigation and Interaction for a Campus Tour
+Guide</em> (Adyuth Hisham Babu Syed, Xiaoyang Chen, David Mörck, Andreas
+Särnholm, Shijie Zhou; Chalmers, SSY226). Figures 3 to 5 below are from
+that paper, and the paper’s reported numbers are cited where
+compared.</p>
 <h2 id="rtk-gnss">1. RTK-GNSS</h2>
 <p>RTK (real-time kinematic) uses correction data from a reference
 network to turn a metre-level GNSS fix into a centimetre-level one. The

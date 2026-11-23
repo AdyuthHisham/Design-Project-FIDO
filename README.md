@@ -3,8 +3,6 @@
 ## The project
 FIDO (Friendly and Interactive robot DOg) was a Chalmers masters course project (SSY226): a Unitree Go2 quadruped that guides visitors around campus, talks to them through a language model and follows a planned route outdoors. The project was ongoing across course years, and this year's team (Xiaoyang Chen, David Mörck, Andreas Särnholm, Shijie Zhou and me) improved the existing localization and trajectory control, and implemented a new LiDAR SLAM and new dialogue/voice modules. This repo covers only the localization and trajectory-control part, rebuilt offline from the recorded ROS 2 bags.
 
-The work is described in the co-authored project paper, *FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide* (Adyuth Hisham Babu Syed, Xiaoyang Chen, David Mörck, Andreas Särnholm, Shijie Zhou; Chalmers, SSY226). Figures 3 to 5 below are from that paper, and the paper's reported numbers are cited where compared.
-
 The robot has three position sources, none good enough alone:
 - **Leg odometry** (~300 Hz): smooth but drifts, and lives in its own frame that starts at an arbitrary pose.
 - **IMU**: its quaternion gives the yaw the controller and filter use.
@@ -14,6 +12,9 @@ The robot has three position sources, none good enough alone:
 *The pipeline is: RTK-GNSS → align GNSS to the odometry frame → coordinated-turn EKF fusing both → LQR tracking a waypoint trajectory on the EKF estimate.*
 
 The plots below (Fig. 3 to 5) are taken from the co-authored paper. The numbers in the text come from re-running the recovered code on the recorded bags (**replay**), a port of that code (**re-implementation**) or a synthetic closed loop (**simulation**), and are labelled as such. Odometry is a *relative baseline, not ground truth*; no surveyed reference exists, so nothing here is a filter accuracy claim.
+
+## The paper
+The work is described in the co-authored project paper, *FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide* (Adyuth Hisham Babu Syed, Xiaoyang Chen, David Mörck, Andreas Särnholm, Shijie Zhou; Chalmers, SSY226). Figures 3 to 5 below are from that paper, and the paper's reported numbers are cited where compared.
 
 ## 1. RTK-GNSS
 RTK (real-time kinematic) uses correction data from a reference network to turn a metre-level GNSS fix into a centimetre-level one. The receiver reports the fix type in the NavSatFix status: `2` = RTK-corrected, `0` = plain. Fixes arrive at ~1 Hz as latitude/longitude. Here RTK is a property of the input; the EKF is unchanged by it in the original (this repo adds an optional status-dependent R, labelled "ext.").
