@@ -44,7 +44,7 @@ data/               arrays extracted from the bags (27 MB)
 
 - **Localization (mine).** RTK status from the receiver, a sliding-window line fit of recent GNSS points to get a GNSS heading, a constant yaw offset to odometry, and an asynchronous 5-state EKF.
 - **Control (mine).** A 50 Hz discrete LQR on `[x, y, yaw]`, fed by the EKF estimate instead of raw odometry.
-- **Rest of the project (team).** Xiaoyang Chen, David Mörck, Andreas Särnholm and Shijie Zhou worked on the dialogue and voice modules and LiDAR SLAM. No data for those is in this repo.
+- **Rest of the project (team).** The rest of the team worked on the dialogue and voice modules and LiDAR SLAM. No data for those is in this repo.
 
 ![Pipeline](out/fig_pipeline.png)
 *Pipeline: RTK-GNSS, align GNSS to the odometry frame, coordinated-turn EKF fusing both, LQR tracking a waypoint trajectory on the EKF estimate.*
