@@ -119,9 +119,6 @@ Means over 12 GNSS bags (`out/ekf_summary.json`):
 | EKF (recovered, unchanged) | 9.4 | 0.82 m | 3.7 m |
 | **EKF (ext.)** | **1.9** | **0.21 m** | 3.4 m |
 
-![EKF ablation](out/fig_ekf_ablation.png)
-*Replay: ablation of the three changes.*
-
 The recovered filter produces a 1 Hz sawtooth: each fix pulls the estimate to GNSS, then the odometry update pulls it back. Raising the odometry cost with the recovered decay rate made this worse. Slowing the decay and feeding odometry velocity into the prediction is what smooths it. The EKF (ext.) sits farther from odometry because it trusts GNSS more. None of these numbers measure accuracy.
 
 **Noise calibration.** Static RTK covariance gives σ ≈ 0.05 m, against 0.71 m for the hand-set `R_gps` and 2.2 m after the ×10 inflation used on the robot. The hand-set values are conservative by more than an order of magnitude for RTK. Plain-GNSS circle residuals (1.3 m RMS) sit closer to them. A 5×5 sweep of R and Q shows trade-offs, not an optimum, since trusting odometry trivially lowers jerk and distance to odometry.
