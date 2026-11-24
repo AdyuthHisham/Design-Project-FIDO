@@ -8,17 +8,13 @@
 
 *Replay on a recorded bag (not a simulation): raw GNSS fixes at 1 Hz, odometry at ~300 Hz, and the coordinated-turn EKF estimate.*
 
-<img src="photos/fido.png" width="300" alt="FIDO, a Unitree Go2 with the GNSS antenna and receiver mounted on its back">
-
-*FIDO outdoors on campus. Photo from the project poster.*
+<img src="photos/fido.png" align="right" width="300" hspace="16" alt="FIDO, a Unitree Go2 with the GNSS antenna and receiver mounted on its back">
 
 **Problem.** FIDO (Friendly and Interactive robot DOg, Chalmers SSY226) is a Unitree Go2 that walks a planned route outdoors. It has three position sources and none is good enough alone: leg odometry is smooth but drifts and sits in its own frame, the IMU gives yaw, and GNSS is absolute but noisy (metres without RTK) and in yet another frame.
 
 **Approach.** RTK-GNSS for centimetre-level fixes, a regression-based yaw alignment that puts GNSS and odometry in one frame, a coordinated-turn EKF that fuses them asynchronously, and an LQR that tracks a waypoint trajectory on the EKF estimate.
 
 **Result.** On the two RTK circle runs, the aligned GNSS track is 1.8 m RMS from odometry once the alignment is gated on motion (6.8 m with the recovered rule alone), and the GNSS circle itself fits with 0.32 m residual. The EKF cuts jerk to a third or less of the raw GNSS track on straight and circular runs, but it is judged against odometry and GNSS only: there is no surveyed ground truth, so no filter accuracy is claimed. In a synthetic closed loop the recovered filter diverges and an extended version does not. Odometry is a relative baseline throughout.
-
-My part (Adyuth Hisham Babu Syed, first author) was the RTK-GNSS setup, heading estimation, EKF sensor fusion and the LQR/LQG trajectory controller. The other parts of the project were done by teammates and are described briefly below.
 
 ## Repo map
 
@@ -45,13 +41,12 @@ data/               arrays extracted from the bags (27 MB)
 2. **Frames.** GNSS gives latitude/longitude. Odometry gives metres in a frame that starts at an arbitrary pose. Neither shares an origin or a heading.
 3. **Fusion.** Odometry is smooth but drifts; GNSS is absolute but arrives at 1 Hz and is noisy. The two run at very different rates.
 4. **Following a route.** The controller needs a position and heading estimate and has to turn it into velocity commands the Go2 accepts.
-5. **Everything else.** Language-model dialogue, voice and LiDAR SLAM (teammates, see below).
+5. **Everything else.** Language-model dialogue, voice and LiDAR SLAM.
 
 ## Approach we took
 
-- **Localization (mine).** RTK status from the receiver, a sliding-window line fit of recent GNSS points to get a GNSS heading, a constant yaw offset to odometry, and an asynchronous 5-state EKF.
-- **Control (mine).** A 50 Hz discrete LQR on `[x, y, yaw]`, fed by the EKF estimate instead of raw odometry.
-- **Rest of the project (team).** The rest of the team worked on the dialogue and voice modules and LiDAR SLAM. No data for those is in this repo.
+- **Localization.** RTK status from the receiver, a sliding-window line fit of recent GNSS points to get a GNSS heading, a constant yaw offset to odometry, and an asynchronous 5-state EKF.
+- **Control.** A 50 Hz discrete LQR on `[x, y, yaw]`, fed by the EKF estimate instead of raw odometry.
 
 ![Pipeline](out/fig_pipeline.png)
 *Pipeline: RTK-GNSS, align GNSS to the odometry frame, coordinated-turn EKF fusing both, LQR tracking a waypoint trajectory on the EKF estimate.*
@@ -61,7 +56,7 @@ Each figure is labelled by how it was made: **replay** (recovered code run on th
 ## Our solutions
 
 ### Problem 1: GNSS error, solved with RTK
-RTK uses correction data from a reference network to turn a metre-level fix into a centimetre-level one. The receiver reports it in the NavSatFix status (`2` = RTK, `0` = plain). I compared circle runs of 5 m radius with RTK off and on.
+RTK uses correction data from a reference network to turn a metre-level fix into a centimetre-level one. The receiver reports it in the NavSatFix status (`2` = RTK, `0` = plain). Circle runs of 5 m radius with RTK off and on.
 
 ![Report Fig. 3](report_figs/fig3_rtk_disabled_vs_enabled.png)
 *GNSS tracking of a 5 m circle, RTK disabled (a) and enabled (b). Odometry is the local reference. Taken from the project paper.*
@@ -98,14 +93,14 @@ Latitude/longitude are converted to east/north metres about the first fix. A win
 
 Nothing measures `v` or `ω`, so the recovered filter never corrects them and its prediction barely moves the robot between fixes.
 
-**The EKF used in my replays (ext.)** is the recovered filter with three changes, none of them recovered code: (1) after each GNSS fix the odometry *cost* is raised (`R_odom / odom_red`, reset to 0.0002 and recovering by 0.000025 per 20 ms), so GNSS is trusted after a fix and odometry only gradually; (2) `v` and `ω` are set from the odometry twist at every step; (3) the heading-regression window is cleared while the robot stands still. The decay rate is my choice from a small test (`src/test_odom_schedule.py`), not the on-robot value. The unmodified filter stays in the ablation as "EKF (recovered, unchanged)".
+**The EKF used in the replays (ext.)** is the recovered filter with three changes, none of them recovered code: (1) after each GNSS fix the odometry *cost* is raised (`R_odom / odom_red`, reset to 0.0002 and recovering by 0.000025 per 20 ms), so GNSS is trusted after a fix and odometry only gradually; (2) `v` and `ω` are set from the odometry twist at every step; (3) the heading-regression window is cleared while the robot stands still. The decay rate is a choice from a small test (`src/test_odom_schedule.py`), not the on-robot value. The unmodified filter stays in the ablation as "EKF (recovered, unchanged)".
 
 | Quantity | Value used |
 |---|---|
 | GNSS noise `R_gps` (x, y, ψ) | diag(0.5, 0.5, 1.903) × 10 = diag(5, 5, 19.03) |
 | Odometry pose noise `R_odom` (x, y, ψ) | diag(9, 9, 0.25) × 40 = diag(360, 360, 10) |
 | Process noise `Q` | 25 for position and speed (times dt), 0.0305 rad² for ψ, 0.04 for ω |
-| Initial covariance `P₀` | 10·I (my port; the original value was not recorded) |
+| Initial covariance `P₀` | 10·I (this port; the original value was not recorded) |
 | Heading regression | buffer 6, R² gate 0.93 |
 
 ![Report Fig. 5](report_figs/fig5_ekf_test_results.png)
@@ -137,10 +132,10 @@ The recovered filter produces a 1 Hz sawtooth: each fix pulls the estimate to GN
 
 **Law** `u = −K (x̂ − x_ref)` with the heading error wrapped. The world-frame `(u_x, u_y)` is rotated into the body frame by yaw and sent as `Move(v_x, v_y, ω)`. The reference `x_ref(t)` comes from a waypoint planner at 0.3 m/s sampled every 0.02 s, offset by the start pose.
 
-Cross-track RMS on the 5 m circle with plain-GNSS noise: GNSS plus odometry increments 0.68 m, EKF with a gain schedule and odometry `v, ω` (ext.) 1.17 m, odometry only 1.33 m, and **the recovered EKF diverges** (about 440 m). The closed loop uses this earlier gain-schedule extension, not the EKF (ext.) of problem 3, which diverged on this holonomic plant because it cannot see sideways motion between 1 Hz fixes. These are simulation results under my noise model, not robot results.
+Cross-track RMS on the 5 m circle with plain-GNSS noise: GNSS plus odometry increments 0.68 m, EKF with a gain schedule and odometry `v, ω` (ext.) 1.17 m, odometry only 1.33 m, and **the recovered EKF diverges** (about 440 m). The closed loop uses this earlier gain-schedule extension, not the EKF (ext.) of problem 3, which diverged on this holonomic plant because it cannot see sideways motion between 1 Hz fixes. These are simulation results under the noise model, not robot results.
 
-### Problem 5: the rest of the project (team)
-Language-model dialogue, voice interaction and LiDAR SLAM were built by teammates. There is no data for them here, so nothing in this repo reproduces them.
+### Problem 5: dialogue, voice and LiDAR SLAM
+These parts of the project are outside this repo. There is no data for them here, so nothing in it reproduces them.
 
 ### Not completed
 - No ground-truth track exists, so filter accuracy is not measured.
