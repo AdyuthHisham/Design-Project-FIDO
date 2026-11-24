@@ -1,3 +1,5 @@
+# FIDO: localization and control for a campus tour-guide robot dog
+
 > **What is this project about?** A quadruped robot dog that guides people around a university campus, and the localization and trajectory control that keep it on its route. This repo rebuilds that part offline from the recorded ROS 2 bags.
 
 ## TLDR
@@ -6,7 +8,7 @@
 
 *Replay on a recorded bag (not a simulation): raw GNSS fixes at 1 Hz, odometry at ~300 Hz, and the coordinated-turn EKF estimate.*
 
-![FIDO, a Unitree Go2 with the GNSS antenna and receiver mounted on its back](photos/fido.png)
+<img src="photos/fido.png" width="300" alt="FIDO, a Unitree Go2 with the GNSS antenna and receiver mounted on its back">
 
 *FIDO outdoors on campus. Photo from the project poster.*
 
