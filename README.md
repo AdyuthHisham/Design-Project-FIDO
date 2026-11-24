@@ -6,6 +6,10 @@
 
 *Replay on a recorded bag (not a simulation): raw GNSS fixes at 1 Hz, odometry at ~300 Hz, and the coordinated-turn EKF estimate.*
 
+![FIDO, a Unitree Go2 with the GNSS antenna and receiver mounted on its back](photos/fido.png)
+
+*FIDO outdoors on campus. Photo from the project poster.*
+
 **Problem.** FIDO (Friendly and Interactive robot DOg, Chalmers SSY226) is a Unitree Go2 that walks a planned route outdoors. It has three position sources and none is good enough alone: leg odometry is smooth but drifts and sits in its own frame, the IMU gives yaw, and GNSS is absolute but noisy (metres without RTK) and in yet another frame.
 
 **Approach.** RTK-GNSS for centimetre-level fixes, a regression-based yaw alignment that puts GNSS and odometry in one frame, a coordinated-turn EKF that fuses them asynchronously, and an LQR that tracks a waypoint trajectory on the EKF estimate.
@@ -27,6 +31,7 @@ out/                figures, GIFs, and the JSON each figure's numbers come from
   results.json      every headline number with the script and bags behind it
   fido_ekf_replay.json  replay payload for a browser demo (~70 kB)
 report_figs/        Figures 3 to 5 taken from the project paper
+photos/             photo of the robot, from the project poster
 docs/deviations.md  every difference between the recovered code and the port here
 data/               arrays extracted from the bags (27 MB)
 ```
