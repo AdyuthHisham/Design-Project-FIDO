@@ -1,6 +1,6 @@
 > **What is this project about?** A quadruped robot dog that guides people around a university campus, and the localization and trajectory control that keep it on its route. This repo rebuilds that part offline from the recorded ROS 2 bags.
 
-## TLDR (in brief)
+## TLDR
 
 ![Replay of the EKF on a recorded bag: odometry, GNSS fixes and the fused estimate](out/ekf_replay.gif)
 
