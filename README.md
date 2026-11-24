@@ -82,11 +82,6 @@ Latitude/longitude are converted to east/north metres about the first fix. A win
 ![Report Fig. 4](report_figs/fig4_global_frame_yaw_corrections.png)
 *Robot movement in the global frame and yaw corrections. Taken from the project paper.*
 
-![Alignment sweep](out/fig_alignment_sweep.png)
-*Replay: effect of the alignment on each run.*
-
-The recovered rule picks a wrong offset on most runs (up to about 80° from the least-squares rotation) because the window also fills while the robot stands still. Clearing the window when the robot is stationary fixes most of that. This is an extension (labelled "ext."), not recovered code. It is why the RTK runs go from 6.8 m to 1.8 m above.
-
 ### Problem 3: fusion, solved with a coordinated-turn EKF
 **State** `x = [p_x, p_y, v, ψ, ω]ᵀ`: planar position, forward speed, heading, turn rate (2-D only).
 
@@ -113,9 +108,6 @@ Nothing measures `v` or `ω`, so the recovered filter never corrects them and it
 
 ![Report Fig. 5](report_figs/fig5_ekf_test_results.png)
 *EKF test results on straight, circular and L-shaped trajectories. Taken from the project paper.*
-
-![EKF replay](out/fig_ekf.png)
-*Replay: raw GNSS, odometry and EKF (ext.) on recorded runs.*
 
 On the straight and circular runs the EKF stays within 0.11 m and 0.16 m RMS of the RTK trajectory, and its 10 Hz jerk (0.12 m and 0.09 m) is a third or less of the GNSS track's (0.36 m and 0.40 m). The straight run's GNSS track has a roughly 2 m hook at one end that is in the data, not the filter. On the L-shaped run the EKF cuts across the second leg and ends 1.3 m RMS from the GNSS track, because the alignment is off by about 16° on that run. Averaging the first several heading windows or weighting GNSS yaw more did not fix it. I did not solve this.
 
@@ -149,23 +141,12 @@ The recovered filter produces a 1 Hz sawtooth: each fix pulls the estimate to GN
 ![Closed-loop control](out/control_sim.gif)
 *Simulation: LQR tracking a 5 m circle on noisy estimates.*
 
-![Control comparison](out/fig_control.png)
-*Simulation on a circle, line plus turn, L-shape and a 10 m line. Noise magnitudes are resampled from the bags, odometry has a scale error of 1.21. Solid = RTK noise, hatched = plain-GNSS noise.*
-
 Cross-track RMS on the 5 m circle with plain-GNSS noise: GNSS plus odometry increments 0.68 m, EKF with a gain schedule and odometry `v, ω` (ext.) 1.17 m, odometry only 1.33 m, and **the recovered EKF diverges** (about 440 m). The closed loop uses this earlier gain-schedule extension, not the EKF (ext.) of problem 3, which diverged on this holonomic plant because it cannot see sideways motion between 1 Hz fixes. These are simulation results under my noise model, not robot results.
-
-**Recorded control logs.** Two pasted `traj_server` terminal logs hold per-cycle `vx`, `vy`, `omega`.
-
-![Control logs](out/fig_logs.png)
-*Recorded command traces compared with the simulated controller.*
-
-Log A shows a diverged, saturated controller (vx up to 14 m/s, omega stuck). Log B starts as an LQR would with a moving reference and a robot that has not yet moved: vx rises 0.75 m/s² (sim 0.92 m/s² with `K_x = 3.06`), then departs. The reference path behind either log was not recorded, so I could not match a simulated path to them.
 
 ### Problem 5: the rest of the project (team)
 Language-model dialogue, voice interaction and LiDAR SLAM were built by teammates. There is no data for them here, so nothing in this repo reproduces them.
 
 ### Not completed
-- The final on-robot code is lost. The recovered code is an earlier version.
 - No ground-truth track exists, so filter accuracy is not measured.
 - Trial counts and the scripts behind the paper's numbers could not be recovered.
 - Position is 2-D only; indoor and outdoor operation are not fused.
