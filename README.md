@@ -157,7 +157,7 @@ Cross-track RMS on the 5 m circle with plain-GNSS noise: GNSS plus odometry incr
 Log A shows a diverged, saturated controller (vx up to 14 m/s, omega stuck). Log B starts as an LQR would with a moving reference and a robot that has not yet moved: vx rises 0.75 m/s² (sim 0.92 m/s² with `K_x = 3.06`), then departs. The reference path behind either log was not recorded, so I could not match a simulated path to them.
 
 ### Problem 5: the rest of the project (team)
-Language-model dialogue, voice interaction and LiDAR SLAM were built by teammates (names below). There is no data for them here, so nothing in this repo reproduces them.
+Language-model dialogue, voice interaction and LiDAR SLAM were built by teammates. There is no data for them here, so nothing in this repo reproduces them.
 
 ### Not completed
 - The final on-robot code is lost. The recovered code is an earlier version.
@@ -182,13 +182,6 @@ Limits:
 ## Team members
 
 - **Adyuth Hisham Babu Syed** (first author; localization, RTK-GNSS, heading estimation, EKF, trajectory control: this repo)
-- Xiaoyang Chen
-- David Mörck
-- Andreas Särnholm
-- Shijie Zhou
+- Four teammates (dialogue, voice, LiDAR SLAM)
 
 Paper: [*FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide*](SSY226_Fido_article_final.pdf), Chalmers, SSY226.
-
-## License
-
-None set.
