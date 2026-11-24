@@ -179,9 +179,4 @@ Limits:
 - The paper reports 6.7 m (plain) and 1.7 m (RTK) GNSS-to-odometry RMSE. Replaying the recovered code gives 5.7 m and 6.8 m, and 5.4 m and 1.8 m with the stationary gate; the bag lists behind the paper's numbers are not recoverable.
 - Differences between the paper and the recovered code (Haversine vs pyproj, LQG vs LQR class) and every change in the port are in `docs/deviations.md`.
 
-## Team members
-
-- **Adyuth Hisham Babu Syed** (first author; localization, RTK-GNSS, heading estimation, EKF, trajectory control: this repo)
-- Four teammates (dialogue, voice, LiDAR SLAM)
-
-Paper: [*FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide*](SSY226_Fido_article_final.pdf), Chalmers, SSY226.
+**Paper:** [*FIDO: Integrating Robust Navigation and Interaction for a Campus Tour Guide*](SSY226_Fido_article_final.pdf), Chalmers, SSY226.
