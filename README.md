@@ -135,9 +135,6 @@ The recovered filter produces a 1 Hz sawtooth: each fix pulls the estimate to GN
 
 **Law** `u = −K (x̂ − x_ref)` with the heading error wrapped. The world-frame `(u_x, u_y)` is rotated into the body frame by yaw and sent as `Move(v_x, v_y, ω)`. The reference `x_ref(t)` comes from a waypoint planner at 0.3 m/s sampled every 0.02 s, offset by the start pose.
 
-![Closed-loop control](out/control_sim.gif)
-*Simulation: LQR tracking a 5 m circle on noisy estimates.*
-
 Cross-track RMS on the 5 m circle with plain-GNSS noise: GNSS plus odometry increments 0.68 m, EKF with a gain schedule and odometry `v, ω` (ext.) 1.17 m, odometry only 1.33 m, and **the recovered EKF diverges** (about 440 m). The closed loop uses this earlier gain-schedule extension, not the EKF (ext.) of problem 3, which diverged on this holonomic plant because it cannot see sideways motion between 1 Hz fixes. These are simulation results under my noise model, not robot results.
 
 ### Problem 5: the rest of the project (team)
